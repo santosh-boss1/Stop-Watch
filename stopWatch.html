@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch (Project-2)</title>
+    <style>
+        .container {
+            text-align: center;
+            color: rgb(240, 12, 118);
+            margin: 5% 15%;
+            padding: 2rem;
+            background-image: linear-gradient(to right,rgb(221, 20, 114),rgb(14, 221, 48));
+            box-shadow: 0 0 20px grey;
+            border-radius: 2rem;
+        }
+
+        button {
+            margin: 0 1rem;
+            padding: 0.5rem 2.5rem;
+            border-radius: 10px;
+            border: 2px solid white;
+            background-image: linear-gradient(to right,rgb(185, 177, 177),rgb(118, 27, 192));
+            color: white;
+            cursor: pointer;
+        }
+        .container #buttonStart:hover
+        {
+            cursor: pointer;
+            background-color: green;
+            transition: 2s;
+            border-color:transparent ;
+            background-image: none;
+        }
+        .container #buttonStop:hover
+        {
+            cursor: pointer;
+            background-color: blue;
+            transition: 2s;
+            border-color:transparent ;
+            background-image: none;
+        }
+        .container #buttonReset:hover
+        {
+            cursor: pointer;
+            background-color: red;
+            transition: 2s;
+            border-color:transparent ;
+            background-image: none;
+        }
+        p
+        {
+            padding: 2rem 0;
+            margin: 2rem 10%;
+            font-size: 3em;;
+            background-color: black;
+            border-radius: 1rem;
+            box-shadow: 0 0 10px gray;
+            color: white;
+        }
+        p .times
+        {
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="font-size: 3em;margin: 0;">STOP WATCH</h1>
+        <P><span id="hours">00</span><span class="times">Hr</span><span id="minutes">00</span><span class="times">Min</span><span id="seconds">00</span><span class="times">Sec</span><span id="tens">00</span></P>
+        <button id="buttonStart" type="button" name="buttonStart">Start</button>
+        <button id="buttonStop" type="button" name="buttonStop">Stop</button>
+        <button id="buttonReset" type="button" name="buttonReset">Reset</button>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var hour = 0;
+        var min = 0;
+        var sec = 0;
+        var tens = 0;
+        var appendHour = document.getElementById("hours");
+        var appendMinute = document.getElementById("minutes");
+        var appendSecond = document.getElementById("seconds");
+        var appendTens = document.getElementById("tens");
+        //  Button Functionality
+        const startButton = document.querySelector("#buttonStart");
+        const stopButton = document.querySelector("#buttonStop");
+        const resetButton = document.querySelector("#buttonReset");
+        var interval;
+        // Start Button Functionality
+        startButton.addEventListener("click", function () {
+            clearInterval(interval);
+            interval = setInterval(startTimer, 10);
+        });
+        // Stop Button Functionality
+        stopButton.addEventListener("click", function () {
+            clearInterval(interval);
+        });
+        // Reset Button Functionality
+        resetButton.addEventListener("click", function () {
+            clearInterval(interval);
+            hour = "00";
+            min = "00";
+            sec = "00";
+            tens = "00";
+            appendSecond.innerHTML = sec;
+            appendMinute.innerHTML = min;
+            appendHour.innerHTML = hour;
+            appendTens.innerHTML = tens;
+        });
+
+        function startTimer() {
+            tens++;
+            if (tens <= 9) {
+                appendTens.innerHTML = "0" + tens;
+            }
+            if (tens > 9) {
+                appendTens.innerHTML = tens;
+            }
+            if (tens > 99) {
+                console.log("seconds");
+                sec++;
+                appendSecond.innerHTML = "0" + sec;
+                tens = 0;
+                appendTens.innerHTML = "0" + tens;
+            }
+            if (sec > 9 && sec < 60) {
+                appendSecond.innerHTML = sec;
+            }
+            if (sec > 59) {
+                min++;
+                appendMinute.innerHTML = "0" + min;
+                if (min > 9 && min < 59) {
+                    appendMinute.innerHTML = min;
+                }
+                sec = 0;
+                appendSecond.innerHTML = "0" + sec;
+                tens = 0;
+                appendTens.innerHTML = "0" + tens;
+            }
+            if (min > 59) {
+                hour++;
+                appendHour.innerHTML = "0" + hour;
+                if (hour > 9) {
+                    appendHour.innerHTML = hour;
+                }
+                sec = 0;
+                appendSecond.innerHTML = "0" + sec;
+                min = 0;
+                appendMinute.innerHTML = "0" + min;
+                tens = 0;
+                appendTens.innerHTML = "0" + tens;
+            }
+        }
+    }
+</script>
+
+</html>
